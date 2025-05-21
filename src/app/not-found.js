@@ -1,4 +1,6 @@
 // app/not-found.js
+import Link from 'next/link';
+
 export default function NotFound() {
   return (
     <div className="flex flex-col items-center justify-center h-screen text-center px-4 max-w-2xl mx-auto">
@@ -21,9 +23,9 @@ export default function NotFound() {
       <h1 className="text-4xl font-bold mb-3 text-gray-800">Under Construction</h1>
       <div className="w-16 h-1 bg-[#194185] mb-6 mx-auto"></div>
       <p className="text-gray-600 mb-8 text-lg">
-        We're currently working on this page. Please check back soon!
+        We&apos;re currently working on this page. Please check back soon!
       </p>
-      <a
+      <Link
         href="/"
         className="px-6 py-3 bg-[#194185] text-white rounded-lg hover:bg-blue-800 transition duration-300 font-medium flex items-center"
       >
@@ -40,7 +42,7 @@ export default function NotFound() {
           />
         </svg>
         Return to Home
-      </a>
+      </Link>
     </div>
   );
 }
