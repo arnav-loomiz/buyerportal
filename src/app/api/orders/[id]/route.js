@@ -18,7 +18,7 @@ export async function GET(request, { params }) {
         { status: 404 }
       );
     }
-
+    console.log("Order received")
     return Response.json(order);
   } catch (error) {
     console.error('Error fetching order by quote:', error);
