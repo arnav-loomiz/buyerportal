@@ -4,7 +4,11 @@ import dbConnect from '@/lib/mongodb'; // Adjust path as needed
 import Order from '@/models/Order'; // Adjust path as needed
 
 export async function GET(request, { params }) {
-  const { id } = params; // This is the quote ID
+  const { id} = params; // This is the quote ID
+
+  console.log(params)
+
+  // const id=quoteId
 
   try {
     await dbConnect();

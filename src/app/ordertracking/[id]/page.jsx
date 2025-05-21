@@ -15,7 +15,9 @@ const OrderTrackingStepsHome = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const params = useParams();
-  const quoteId = params.id; // This is the quote ID from the URL
+  const quoteId = "6821c6e6711b63dce4a86a9f"; // This is the quote ID from the URL
+
+  console.log(quoteId)
 
   useEffect(() => {
     const fetchOrderData = async () => {
