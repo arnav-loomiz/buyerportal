@@ -11,82 +11,21 @@ import OutForDelivery from "../../components/OrderTrackingSteps/OutForDelivery";
 import ConfirmPaymentTerms from "../../components/OrderTrackingSteps/ConfirmPaymentTerms";
 
 const OrderTrackingStepsHome = () => {
-  const [orderData, setOrderData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const params = useParams();
-  const quoteId = "6821c6e6711b63dce4a86a9f"; // This is the quote ID from the URL
-
-  console.log(quoteId)
-
-  useEffect(() => {
-    const fetchOrderData = async () => {
-      try {
-        setLoading(true);
-        // Fetch order by quote ID
-        const response = await fetch(`/api/orders/${quoteId}`);
-        
-        if (!response.ok) {
-          throw new Error(`Failed to fetch order: ${response.statusText}`);
-        }
-        
-        const data = await response.json();
-        setOrderData(data);
-      } catch (err) {
-        console.error("Error fetching order data:", err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (quoteId) {
-      fetchOrderData();
+  // Static order data with the first 3 steps completed, next 2 in progress
+  const orderData = {
+    orderNumber: "ORD12345",
+    status: "In Production",
+    productionSteps: {
+      sampleConfirmation: "completed",
+      fabricInhoused: "completed",
+      fabricQualityCheck: "completed",
+      production: "in-progress",
+      packaging: "in-progress",
+      qualityCheck: "not-started",
+      outForDelivery: "not-started",
+      confirmPaymentTerms: "not-started"
     }
-  }, [quoteId]);
-
-  if (loading) {
-    return (
-      <div className="space-y-4 bg-white rounded-[50px] p-2 mt-10">
-        <div className="flex justify-center items-center h-64">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E4E79] mx-auto"></div>
-            <p className="mt-4 text-[#1E4E79]">Loading order details...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="space-y-4 bg-white rounded-[50px] p-2 mt-10">
-        <div className="flex justify-center items-center h-64">
-          <div className="text-center">
-            <p className="text-red-600">Error: {error}</p>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="mt-4 px-4 py-2 bg-[#1E4E79] text-white rounded-lg hover:bg-[#233B6E]"
-            >
-              Retry
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!orderData) {
-    return (
-      <div className="space-y-4 bg-white rounded-[50px] p-2 mt-10">
-        <div className="flex justify-center items-center h-64">
-          <div className="text-center">
-            <p className="text-gray-600">No order found for this quote.</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  };
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -112,9 +51,6 @@ const OrderTrackingStepsHome = () => {
         <span className={`text-[14px] px-4 rounded-full border ${getStatusColor(orderData.status)}`}>
           {orderData.status.toUpperCase()}
         </span>
-        
-        {/* Additional Order Info */}
-       
       </div>
 
       <div>
