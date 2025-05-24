@@ -11,9 +11,9 @@ const Sidebar = ({ isMobile, isOpen, closeSidebar }) => {
     { label: 'REQUEST FOR QUOTE', icon: '/SidebarRFQLogo.svg', route: '/rfq' },
     { label: 'ORDER TRACKING', icon: '/SidebarOrderTrackingLogo.svg', route: '/ordertracking' },
     { label: 'PAYMENT', icon: '/SidebarPaymentLogo.svg', route: '/payment' },
-    { label: 'CHATS', icon: '/SidebarChatsLogo.svg', route: '/chats' },
-    { label: 'ORDER HISTORY', icon: '/SidebarOrderHistoryLogo.svg', route: '/order-history' },
-    { label: 'CATALOGUES', icon: '/SidebarOrderHistoryLogo.svg', route: 'https://ecomloomiz.vercel.app/', external: true }, // External route
+    { label: 'CHATS', icon: '/SidebarChatsLogo.svg', route: '/Chats' },
+    // { label: 'ORDER HISTORY', icon: '/SidebarOrderHistoryLogo.svg', route: '/order-history' },
+    { label: 'CATALOGUES', icon: '/SidebarOrderHistoryLogo.svg', route: 'https://ecomloomiz.vercel.app/' },
   ];
   
   const bottomItems = [
@@ -22,14 +22,9 @@ const Sidebar = ({ isMobile, isOpen, closeSidebar }) => {
   ];
 
   // Handle navigation
-  const handleNavigation = (route, external = false) => {
-    if (external) {
-      window.open(route, '_blank'); // Open external link in new tab
-    } else {
-      router.push(route); // Internal navigation
-    }
-
-    if (isMobile) closeSidebar(); // Auto-close on mobile
+  const handleNavigation = (route) => {
+    router.push(route);
+    if (isMobile) closeSidebar();
   };
 
   // Simplified sidebar classes
@@ -63,17 +58,19 @@ const Sidebar = ({ isMobile, isOpen, closeSidebar }) => {
           {/* Top Menu */}
           <ul className="list-none px-3 m-0">
             {mainItems.map((item, index) => {
-              const isActive = !item.external && (item.route === '/' 
+              // Check if current path matches this item's route
+              // For home route, check exact match, for others check if path starts with route
+              const isActive = item.route === '/' 
                 ? pathname === '/' 
-                : pathname?.startsWith(item.route));
-              
+                : pathname?.startsWith(item.route);
+                
               return (
                 <li
                   key={index}
                   className={`flex items-center py-3 px-2 cursor-pointer text-[16px] text-[#222] font-[NSregular] hover:bg-[#dbe9ff] rounded-md transition font-variant-small-caps ${
                     isActive ? 'bg-[#dbe9ff]' : ''
                   }`}
-                  onClick={() => handleNavigation(item.route, item.external)}
+                  onClick={() => handleNavigation(item.route)}
                 >
                   <img src={item.icon} alt={`${item.label} icon`} className="w-[25px] h-[25px] mr-3" />
                   <span>{item.label}</span>
@@ -85,10 +82,11 @@ const Sidebar = ({ isMobile, isOpen, closeSidebar }) => {
           {/* Bottom Menu */}
           <ul className="list-none px-3 m-0 mb-2">
             {bottomItems.map((item, index) => {
+              // Check if current path matches this item's route
               const isActive = item.route === '/' 
                 ? pathname === '/' 
                 : pathname?.startsWith(item.route);
-              
+                
               return (
                 <li
                   key={index}
