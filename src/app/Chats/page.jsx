@@ -29,12 +29,12 @@ function Charts() {
   };
 
   const [messages, setMessages] = useState([
-    { sender: "receiver", text: "we will be fine with 7 days extension thank you" },
-    { sender: "sender", text: " we can only postpone upto 1 week, 10 days is not acceptable." },
-    { sender: "receiver", text: "please manage extension of 7-10 days without discount" },
-    { sender: "sender", text: " we cannot accept we will need to apply a 3% discount" },
-    { sender: "receiver", text: "its being resolved right now, could cause a delay of 10days" },
     { sender: "receiver", text: "Dear anya, we experienced rib shortage for approximately 500 pieces." },
+    { sender: "receiver", text: "its being resolved right now, could cause a delay of 10 days" },
+    { sender: "sender", text: " we cannot accept we will need to apply a 3% discount" },
+    { sender: "receiver", text: "please manage extension of 7-10 days without discount" },
+    { sender: "sender", text: " we can only postpone upto 1 week, 10 days is not acceptable." },
+    { sender: "receiver", text: "we will be fine with 7 days extension thank you" },
   ]);
   
   const [canLoadMore, setCanLoadMore] = useState(true);
