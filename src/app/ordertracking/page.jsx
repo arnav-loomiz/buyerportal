@@ -10,7 +10,7 @@ export default async function OrderDetailsPage() {
   await dbConnect();
   
   // Fetch quotes with status='Accepted'
-  const acceptedQuotes = await Quote.find({ status: 'Accepted' }).lean();
+  const acceptedQuotes = await Quote.find({ status: 'Accepted' }).sort({ createdAt: -1 }).lean();
   
   // Get order data for each accepted quote if it exists
   const quotesWithProductionData = await Promise.all(

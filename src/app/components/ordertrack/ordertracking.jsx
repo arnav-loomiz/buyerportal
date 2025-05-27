@@ -48,6 +48,7 @@ export default function OrderTracking({ acceptedQuotes = [] }) {
   // Transform acceptedQuotes into the orders format
   const orders = acceptedQuotes.map(quote => ({
     id: quote._id.slice(-5), // Use last 5 chars of _id as a shorter ID
+    code: quote.code,
     fullId: quote._id, // Store the full ID for navigation
     description: quote.desc || "No description provided",
     status: getOrderStatus(quote),
@@ -193,7 +194,7 @@ export default function OrderTracking({ acceptedQuotes = [] }) {
                   <div className="flex justify-between items-start">
                     <div>
                       <h3 className="font-medium text-[#1D1B20] font-[NSregular] text-[17px]">
-                        CODE {order.id}
+                        Style:  {order.code}
                       </h3>
                       <p className="text-sm text-[#49454F] mt-1 text-[14px]">
                         {order.description}
